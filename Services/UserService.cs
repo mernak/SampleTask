@@ -25,15 +25,12 @@ namespace SampleTaskServerSide.Services
             _context = context;
             _mapper = mapper;
         }
-
-        private List<User> _users = new List<User>
-        {
-            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = "admin", Role = Role.Admin },
-            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = "user", Role = Role.Trainer }
-        };
+     
+        
 
         public User Authenticate(string username, string password)
         {
+            List<UserEntity> _users = _context.Users.ToList();
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
             // return null if user not found
@@ -55,18 +52,21 @@ namespace SampleTaskServerSide.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-
-            return user.WithoutPassword();
+            
+            return _mapper.Map<User>(user).WithoutPassword();
         }
         public IEnumerable<User> GetAll()
         {
-            return _users.WithoutPasswords();
+            List<UserEntity> _users = _context.Users.ToList();
+            
+            return _mapper.Map<List<User>>(_users).WithoutPasswords();
         }
 
         public User GetById(int id)
         {
+            List<UserEntity> _users = _context.Users.ToList();
             var user = _users.FirstOrDefault(x => x.Id == id);
-            return user.WithoutPassword();
+            return _mapper.Map<User>(user).WithoutPassword();
         }
 
         public  User PostUserAsync(UserEntity user)
