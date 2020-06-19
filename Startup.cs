@@ -17,6 +17,7 @@ using SampleTaskServerSide.Services;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using SampleTaskServerSide.Infrastructure;
+using SampleTaskServerSide.Models;
 
 namespace SampleTaskServerSide
 {
@@ -88,7 +89,7 @@ namespace SampleTaskServerSide
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITrainerService, TrainerService>();
             services.AddScoped<IMemberService, MemberService>();
-
+            services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddRouting(options =>
                 options.LowercaseUrls = true
                                 );

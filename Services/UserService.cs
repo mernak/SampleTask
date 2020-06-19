@@ -88,12 +88,14 @@ namespace SampleTaskServerSide.Services
                 var member = new MemberEntity
                 {
                     Username = user.Username,
-                    Password = user.Password
-                };
+                    Password = user.Password,
+                    PackageId = null,
+                    TrainerId = null
+            };
                 _context.Members.Add(member);
             }
              _context.SaveChanges();
-           
+  
             return _mapper.Map<User>(user);
         }
     }

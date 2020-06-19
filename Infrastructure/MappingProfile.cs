@@ -20,6 +20,7 @@ namespace SampleTaskServerSide.Infrastructure
             CreateMap<UserEntity, User>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Encoding.ASCII.GetBytes(src.Password)))
                 .ForMember(dest => dest.PasswordSalt, opt => opt.MapFrom(src => Encoding.ASCII.GetBytes(src.PasswordSalt)));
+            CreateMap<FeedbackEntity, Feedback>();
         }
     }
 }
