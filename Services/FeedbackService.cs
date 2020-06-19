@@ -31,6 +31,7 @@ namespace SampleTaskServerSide.Services
 
         public async Task<Feedback> PostFeedbackAsync(FeedbackEntity feedback)
         {
+            feedback.Date = DateTime.Today;
             _context.Feedbacks.Add(feedback);
             await _context.SaveChangesAsync();
             return _mapper.Map<Feedback>(feedback);
